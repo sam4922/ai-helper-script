@@ -43,13 +43,13 @@
 
 Simply press a global hotkey (default: `Ctrl+Shift+C`) or use a command in your terminal:
 1.  It takes a **screenshot** of your current screen.
-2.  It uses **OCR** (Optical Character Recognition) to extract any text from the screenshot.
+2.  It uses **OCR** (Optical Character Recognition) to extract any text from the screenshot using 'Tesseract.js'.
 3.  It sends both the **image and the extracted text** to Google's **Gemini AI** for analysis based on your custom prompt.
 4.  You get the AI's response as a **desktop notification**.
 
 It's great for quickly summarizing articles, explaining complex diagrams, or getting insights on visual content without interrupting your workflow.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ### Built With
 
@@ -64,7 +64,7 @@ This project relies on several key Node.js libraries:
 * [dotenv](https://github.com/motdotla/dotenv) - For managing environment variables (like your API key).
 * [chalk](https://github.com/chalk/chalk) - For adding color to console output.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Getting Started
 
@@ -130,7 +130,7 @@ You'll need a few things installed first:
         ```
     * Replace `"YOUR_GEMINI_API_KEY_HERE"` with your actual key.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Usage
 
