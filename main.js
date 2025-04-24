@@ -149,8 +149,18 @@ async function saveEnvSettings() {
         }
         const newContent = { ...existingContent, ...settingsToSave };
         const fileContent = Object.entries(newContent)
-            .map(([key, value]) => `${key}="${value.replace(/"/g, '\\"')}"`) // Basic escaping for values
-            .join('\n');
+        .map(([key, value]) => {
+            // Convert value to string first to handle potential non-strings (like boolean debugMode)
+            const stringValue = String(value);
+            if (key === 'TRIGGER_KEY') {
+                // Value is already a JSON string. Wrap it in quotes for .env, but DO NOT escape the internal quotes.
+                return `${key}="${stringValue}"`;
+            } else {
+                // For all other keys, escape any pre-existing double quotes within the value before wrapping.
+                return `${key}="${stringValue.replace(/"/g, '\\"')}"`;
+            }
+        })
+        .join('\n');
         await fs.writeFile(ENV_PATH, fileContent);
         logSuccess("Settings saved to .env file."); // Use success log
     } catch (error) {
