@@ -1,41 +1,34 @@
 <a id="readme-top"></a>
 
-<br />
-<div align="center">
-<h3 align="center">Right Click AI Helper</h3>
+<h1 align="center">
+  <br>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
+  <br>
+  Right Click AI Helper
+  <br>
+</h1>
 
-  <p align="center">
-    Instantly analyze your screen content with Gemini AI using a simple hotkey!
-    <br />
-<br />
-<a href="YOUR_REPO_LINK/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    ·
-    <a href="YOUR_REPO_LINK/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
-  </p>
-</div>
+<h4 align="center">A minimal Markdown Editor desktop app built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#compatibility">Compatibility</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+<p align="center">
+  <a href="https://badge.fury.io/js/electron-markdownify">
+    <img src="https://badge.fury.io/js/electron-markdownify.svg"
+         alt="Gitter">
+  </a>
+ 
+</p>
+
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#download">Download</a> •
+  <a href="#credits">Credits</a> •
+  <a href="#related">Related</a> •
+  <a href="#license">License</a>
+</p>
+
+![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+
 
 ## About The Project
 
@@ -43,11 +36,11 @@
 
 Simply press a global hotkey (default: `Ctrl+Shift+C`) or use a command in your terminal:
 1.  It takes a **screenshot** of your current screen.
-2.  It uses **OCR** (Optical Character Recognition) to extract any text from the screenshot using 'Tesseract.js'.
+2.  It uses **OCR** (Optical Character Recognition) to extract any text from the screenshot using `Tesseract.js`.
 3.  It sends both the **image and the extracted text** to Google's **Gemini AI** for analysis based on your custom prompt.
 4.  You get the AI's response as a **desktop notification**.
 
-It's great for quickly summarizing articles, explaining complex diagrams, or getting insights on visual content without interrupting your workflow.
+It's great for quickly summarizing articles, explaining complex diagrams, or getting insights on visual content without interrupting your workflow. *(Self-correction: Removed potentially problematic "taking quizzes and tests" example)*.
 
 
 
@@ -55,16 +48,15 @@ It's great for quickly summarizing articles, explaining complex diagrams, or get
 
 This project relies on several key Node.js libraries:
 
-* [![Node.js][Node.js]][Node-url]
-* [@google/generative-ai](https://github.com/google/generative-ai-js) - For interacting with the Gemini API.
-* [Tesseract.js](https://github.com/naptha/tesseract.js) - For performing OCR on screenshots.
-* [screenshot-desktop](https://github.com/bencevans/screenshot-desktop) - For capturing the screen.
-* [node-global-key-listener](https://github.com/RedKenrok/node-global-key-listener) - For listening to the global hotkey.
-* [node-notifier](https://github.com/mikaelbr/node-notifier) - For displaying results as desktop notifications.
-* [dotenv](https://github.com/motdotla/dotenv) - For managing environment variables (like your API key).
-* [chalk](https://github.com/chalk/chalk) - For adding color to console output.
+* [@google/generative-ai (0.24.0)](https://github.com/google/generative-ai-js) - For interacting with the Gemini API.
+* [Tesseract.js (6.0.1)](https://github.com/naptha/tesseract.js) - For performing OCR on screenshots.
+* [screenshot-desktop (1.15.1)](https://github.com/bencevans/screenshot-desktop) - For capturing the screen.
+* [node-global-key-listener (0.3.0)](https://github.com/RedKenrok/node-global-key-listener) - For listening to the global hotkey.
+* [node-notifier (10.0.1)](https://github.com/mikaelbr/node-notifier) - For displaying results as desktop notifications.
+* [dotenv (16.5.0)](https://github.com/motdotla/dotenv) - For managing environment variables (like your API key).
+* [chalk (4.1.2)](https://github.com/chalk/chalk) - For adding color to console output.
 
-
+*(Dependency versions based on your `package.json`)*
 
 ## Getting Started
 
@@ -75,25 +67,31 @@ Follow these steps to get the AI Helper running on your local machine.
 You'll need a few things installed first:
 
 1.  **Node.js and npm:**
-    * Download and install Node.js (which includes npm) from [nodejs.org](https://nodejs.org/).
+    * We recommend using the latest **Node.js LTS (Long Term Support)** version (e.g., v18.x, v20.x, or newer LTS). Download and install it from [nodejs.org](https://nodejs.org/).
+    * `npm` (Node Package Manager) is included with Node.js.
     * Verify installation by opening your terminal or command prompt and running:
         ```sh
         node -v
         npm -v
         ```
 
-2.  **Tesseract OCR Engine:**
-    * `Tesseract.js` requires the main Tesseract engine to be installed on your system. Installation varies by OS:
+2. **OPTIONAL: Tesseract OCR Engine (v5.x Recommended):**
+    * `Tesseract.js` (v6+) works best with **Tesseract v5.x**. While `npm install` might handle some basic setup, installing the engine separately is **highly recommended** for full language support and reliability.
+    * Installation varies by OS:
         * **macOS:** Use Homebrew:
             ```sh
-            brew install tesseract
+            brew install tesseract@5 # Or just 'brew install tesseract' if v5 is default
             brew install tesseract-lang # Installs all language data
             ```
-        * **Windows:** Download an installer from the [Tesseract at UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki) page. Make sure to add Tesseract to your system's PATH during installation. You might also need to install the appropriate language data packs.
-        * **Linux (Debian/Ubuntu):**
+        * **Windows:**
+            * Download a v5.x installer from the [Tesseract at UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki) page (look for versions starting with `5.`).
+            * **Important:** During installation, ensure you check the option to **add Tesseract to your system's PATH**.
+            * Also, make sure to install the language data packs you need (e.g., `eng` for English).
+            * *(Note: While sometimes `npm install` might seem sufficient on Windows, the separate installation ensures Tesseract is correctly found by `tesseract.js` and has the necessary language files.)*
+        * **Linux (Debian/Ubuntu):** Check your package manager for Tesseract v5.x. It might be `tesseract-ocr` or a version-specific package.
             ```sh
             sudo apt update
-            sudo apt install tesseract-ocr
+            sudo apt install tesseract-ocr # Check version, install v5 if available
             sudo apt install tesseract-ocr-eng # Or other languages needed
             ```
     * *Note: The script currently uses English (`eng`) for OCR.*
@@ -102,35 +100,23 @@ You'll need a few things installed first:
     * You need an API key to use the Gemini AI model.
     * Get one for free from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Installation
 
 1.  **Clone the repository:**
     ```sh
-    git clone YOUR_REPO_LINK_HERE # Replace with your actual repo link
-    cd right-click-ai-helper # Or your project directory name
+    git clone https://github.com/sam4922/ai-helper-script/tree/master 
+    cd right-click-ai-helper 
     ```
 
 2.  **Install NPM packages:**
     ```sh
     npm install
     ```
+    *(This installs the Node.js libraries listed in `package.json`, including `tesseract.js`)*
 
-3.  **Create and configure the environment file:**
-    * Create a file named `.env` in the project's root directory.
-    * Add your Gemini API key to this file:
-        ```env
-        # .env
-        GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE"
-
-        # Optional: Customize other settings (defaults shown)
-        # AI_MODEL="gemini-1.5-flash"
-        # CUSTOM_PROMPT="Analyze the text and image from this screenshot. Provide a concise summary or answer based on the content."
-        # DEBUG_MODE="false"
-        # TRIGGER_KEY="{\"name\":\"C\",\"ctrl\":true,\"shift\":true,\"alt\":false,\"meta\":false}"
-        ```
-    * Replace `"YOUR_GEMINI_API_KEY_HERE"` with your actual key.
-
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 
@@ -142,6 +128,7 @@ You'll need a few things installed first:
     The application will start, initialize the services, and listen for the hotkey or CLI commands.
 
 2.  **Trigger the AI Helper:**
+    * **API KEY:** If you haven't already, set the api key you got from google by calling `set-apikey <key>`.
     * **Hotkey:** Press the configured global hotkey (default is `Ctrl+Shift+C`).
     * **CLI Command:** Type `capture` (or `c`) in the terminal where the script is running and press Enter.
 
@@ -160,35 +147,16 @@ You'll need a few things installed first:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Compatibility
+## Download
 
-This application is designed to work on:
-
-* **Windows**
-* **macOS**
-
-It should also work on Linux environments where Node.js, Tesseract, and the necessary libraries can be installed, although it has been primarily tested on Windows and macOS. The global hotkey listener relies on OS-specific bindings, which are handled by the `node-global-key-listener` library.
+You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest version of right-click-ai-helper for Windows and macOS.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
-Distributed under the ISC License. See `LICENSE` file (or check `package.json`) for more information.
-
-*(Note: The original template used Unlicense, but your `package.json` specifies ISC. Using ISC here.)*
+MIT
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Acknowledgments
 
-Helpful resources used or inspiration drawn from:
-
-* [Google AI Studio](https://aistudio.google.com/)
-* [Tesseract OCR Documentation](https://tesseract-ocr.github.io/)
-* [Node.js Documentation](https://nodejs.org/en/docs/)
-* [Best-README-Template](https://github.com/othneildrew/Best-README-Template) (Structure)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-[Node.js]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
-[Node-url]: https://nodejs.org/
