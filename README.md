@@ -1,6 +1,5 @@
 <h1 align="center">
   <br>
-  <br>
    right-click-ai-helper
   <br>
 </h1>
