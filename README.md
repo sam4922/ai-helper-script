@@ -106,7 +106,7 @@ You'll need a few things installed first:
 > **Note**
 > This installs the Node.js libraries listed in `package.json`, including `tesseract.js`
 
-You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest version of right-click-ai-helper for Windows and macOS.
+You can [download](https://github.com/sam4922/ai-helper-script/releases/tag/v1.0.0) the latest version of right-click-ai-helper for Windows and macOS.
 
 1.  **Clone the repository:*
    
