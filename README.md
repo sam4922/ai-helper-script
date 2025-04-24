@@ -1,16 +1,15 @@
-<a id="readme-top"></a>
-
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a>
   <br>
-  Right Click AI Helper
+   right-click-ai-helper
   <br>
 </h1>
 
-<h4 align="center">A minimal Markdown Editor desktop app built on top of <a href="http://electron.atom.io" target="_blank">Electron</a>.</h4>
+<h4 align="center"> Instantly analyze your screen content with <a href="http://gemini.google.com" target="_blank">Gemini AI</a> using a simple hotkey!</h4>
+
 
 <p align="center">
+  
   <a href="https://badge.fury.io/js/electron-markdownify">
     <img src="https://badge.fury.io/js/electron-markdownify.svg"
          alt="Gitter">
@@ -19,16 +18,14 @@
 </p>
 
 <p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#download">Download</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#related">Related</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#installation">Installation</a> •
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/sam4922/ai-helper-script/refs/heads/master/ezgif-2129acc836f77b.gif" alt="screenshot">
+</p>
 
 ## About The Project
 
@@ -40,7 +37,7 @@ Simply press a global hotkey (default: `Ctrl+Shift+C`) or use a command in your 
 3.  It sends both the **image and the extracted text** to Google's **Gemini AI** for analysis based on your custom prompt.
 4.  You get the AI's response as a **desktop notification**.
 
-It's great for quickly summarizing articles, explaining complex diagrams, or getting insights on visual content without interrupting your workflow. *(Self-correction: Removed potentially problematic "taking quizzes and tests" example)*.
+It's great for quickly answering questions, explaining diagrams, or getting insights on visual content without interrupting your workflow.
 
 
 
@@ -56,7 +53,8 @@ This project relies on several key Node.js libraries:
 * [dotenv (16.5.0)](https://github.com/motdotla/dotenv) - For managing environment variables (like your API key).
 * [chalk (4.1.2)](https://github.com/chalk/chalk) - For adding color to console output.
 
-*(Dependency versions based on your `package.json`)*
+> **Note**
+> Dependency versions based on your `package.json`
 
 ## Getting Started
 
@@ -70,7 +68,8 @@ You'll need a few things installed first:
     * We recommend using the latest **Node.js LTS (Long Term Support)** version (e.g., v18.x, v20.x, or newer LTS). Download and install it from [nodejs.org](https://nodejs.org/).
     * `npm` (Node Package Manager) is included with Node.js.
     * Verify installation by opening your terminal or command prompt and running:
-        ```sh
+      
+        ```bash
         node -v
         npm -v
         ```
@@ -79,7 +78,8 @@ You'll need a few things installed first:
     * `Tesseract.js` (v6+) works best with **Tesseract v5.x**. While `npm install` might handle some basic setup, installing the engine separately is **highly recommended** for full language support and reliability.
     * Installation varies by OS:
         * **macOS:** Use Homebrew:
-            ```sh
+          
+            ```bash
             brew install tesseract@5 # Or just 'brew install tesseract' if v5 is default
             brew install tesseract-lang # Installs all language data
             ```
@@ -89,12 +89,12 @@ You'll need a few things installed first:
             * Also, make sure to install the language data packs you need (e.g., `eng` for English).
             * *(Note: While sometimes `npm install` might seem sufficient on Windows, the separate installation ensures Tesseract is correctly found by `tesseract.js` and has the necessary language files.)*
         * **Linux (Debian/Ubuntu):** Check your package manager for Tesseract v5.x. It might be `tesseract-ocr` or a version-specific package.
-            ```sh
+          
+            ```bash
             sudo apt update
             sudo apt install tesseract-ocr # Check version, install v5 if available
             sudo apt install tesseract-ocr-eng # Or other languages needed
             ```
-    * *Note: The script currently uses English (`eng`) for OCR.*
 
 3.  **Google Gemini API Key:**
     * You need an API key to use the Gemini AI model.
@@ -102,23 +102,31 @@ You'll need a few things installed first:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Installation
+## Installation
 
-1.  **Clone the repository:**
-    ```sh
+> **Note**
+> This installs the Node.js libraries listed in `package.json`, including `tesseract.js`
+
+You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest version of right-click-ai-helper for Windows and macOS.
+
+1.  **Clone the repository:*
+   
+    ```bash
     git clone https://github.com/sam4922/ai-helper-script/tree/master 
     cd right-click-ai-helper 
     ```
 
-2.  **Install NPM packages:**
-    ```sh
+3.  **Install NPM packages:**
+
+    ```bash
     npm install
     ```
-    *(This installs the Node.js libraries listed in `package.json`, including `tesseract.js`)*
+ 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
+
 
 1.  **Run the application:**
     Open your terminal or command prompt, navigate to the project directory, and run:
@@ -126,13 +134,15 @@ You'll need a few things installed first:
     node main.js
     ```
     The application will start, initialize the services, and listen for the hotkey or CLI commands.
-
-2.  **Trigger the AI Helper:**
-    * **API KEY:** If you haven't already, set the api key you got from google by calling `set-apikey <key>`.
+    
+    If you haven't already, **set the api key** you got from google by calling `set-apikey <key>`
+    
+3.  **Trigger the AI Helper:**
+   
     * **Hotkey:** Press the configured global hotkey (default is `Ctrl+Shift+C`).
     * **CLI Command:** Type `capture` (or `c`) in the terminal where the script is running and press Enter.
 
-3.  **Interact via CLI:**
+4.  **Interact via CLI:**
     While the script is running, you can use these commands in the terminal:
     * `get` or `init`: Show the current configuration (API key status, model, prompt, hotkey, etc.).
     * `set-apikey <your_key>`: Set or update your Gemini API Key.
@@ -144,12 +154,7 @@ You'll need a few things installed first:
     * `capture` or `c`: Manually trigger the screenshot/OCR/AI process.
     * `help`: Display the list of available commands.
     * `quit` or `exit`: Stop the application gracefully.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Download
-
-You can [download](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) the latest version of right-click-ai-helper for Windows and macOS.
+    
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
