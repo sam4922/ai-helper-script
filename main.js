@@ -23,9 +23,9 @@ const MODELS_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models'
 const MODELS_PER_PAGE = 5; // Number of models to show per page in set-model
 
 // Emojis for Status
-const WARN_PREFIX = '⚠️';
-const ERROR_PREFIX = '❗';
-const SUCCESS_PREFIX = '✅'; // Optional: for success
+const WARN_PREFIX = '>';
+const ERROR_PREFIX = '>';
+const SUCCESS_PREFIX = '>'; // Optional: for success
 
 // --- State Management (with defaults) ---
 let state = {
@@ -59,15 +59,15 @@ const logDebug = (message) => {
 };
 const logInfo = (message) => {
     // Regular info is plain white
-    console.log(`${logTimestamp()} [INFO] ${message}`);
+    console.log(message);
 };
 const logWarn = (message) => {
     // Light yellow for warnings
-    console.warn(chalk.yellowBright(`${logTimestamp()} ${WARN_PREFIX} [WARN] ${message}`));
+    console.warn(chalk.yellowBright(`${WARN_PREFIX} [WARN] ${message}`));
 };
 const logSuccess = (message) => {
     // Light green for success messages
-    console.log(chalk.greenBright(`${logTimestamp()} ${SUCCESS_PREFIX} [SUCCESS] ${message}`));
+    console.log(chalk.greenBright(`${SUCCESS_PREFIX} [SUCCESS] ${message}`));
 };
 const logError = (message, error) => {
     // Light red for errors
@@ -92,7 +92,7 @@ function loadEnvSettings() {
     logDebug(`Loading settings from ${ENV_PATH}`);
     try {
         if (!fss.existsSync(ENV_PATH)) {
-            logWarn(`.env file not found at ${chalk.italic(ENV_PATH)}. Using defaults and creating file on first save.`);
+           
             return;
         }
 
@@ -705,14 +705,14 @@ rl.on('line', async (line) => {
                 await initializeServices(true);
             } else {
                 logInfo("Usage: set-apikey <your_gemini_api_key>");
-                logWarn("Get your key from Google AI Studio.");
+                logWarn("Get your key from Google AI Studio. To paste, right click or paste into the command prompt");
             }
             break;
 
         case 'set-model':
             if (!state.apiKey || !state.googleAI) {
                 logError("Cannot set model: API Key not set or Gemini client not initialized.");
-                logWarn("Use 'set-apikey' first.");
+                logWarn("Use 'set-apikey' first. To paste, right click or paste into the command prompt");
                 break;
             }
 
@@ -906,26 +906,25 @@ rl.on('close', () => {
 
 // --- Main Execution ---
 async function main() {
-    console.log(chalk.bold("--- Starting AI Helper Application ---")); // Bold startup title
+  
     loadEnvSettings();
 
-    console.log("\n"); // Add newline before init group
-    // --- Initialization Info Group ---
-    console.group(chalk.bold("--- Initialization Info ---"));
+    
+  
+    console.log(""); // Add newline after init group
+    console.group(chalk.bold("--- IMPORTANT ---"));
     logInfo(`This application uses Google's Gemini AI for analysis.`);
-    if (!state.apiKey) {
-        logWarn("Gemini API Key is NOT configured.");
-        logWarn("You need an API key from Google AI Studio (https://aistudio.google.com/app/apikey).");
-        logWarn(`Once you have a key, use the command: ${chalk.blueBright('set-apikey YOUR_API_KEY')}`);
-        logWarn("AI features will be disabled until a key is set.");
-    } else {
-        logSuccess("Gemini API Key found in settings.");
-    }
+    
     logInfo(`Type ${chalk.blueBright('help')} for a list of available commands.`);
     console.groupEnd();
     console.log(""); // Add newline after init group
+    console.group(chalk.bold("--- Initialization ---"));
 
-
+    if (!state.apiKey) {
+        
+    } else {
+        logSuccess("Gemini API Key found in settings.");
+    }
     // Highlight OS
     logInfo(`Detected OS: ${chalk.blueBright(state.operatingSystem)}`);
     // Initialize services (this will now also try to fetch models if API key exists)
@@ -946,7 +945,24 @@ async function main() {
     }
     // Highlight hotkey and status
     const listenerReadyStatus = state.globalListener ? chalk.greenBright('enabled') : chalk.redBright('(FAILED)');
-    logInfo(`Hotkey: ${chalk.blueBright(formatTriggerKey(state.triggerKey))} ${listenerReadyStatus}.`);
+    console.groupEnd();
+    console.log("--- Initialization Finished ---"); // Add newline after init group
+    console.log(""); // Add newline after init group
+    
+    if (!state.apiKey) {
+        logWarn("Gemini API Key is NOT configured.");
+        logWarn("You need an API key from Google AI Studio (https://aistudio.google.com/app/apikey).");
+        logWarn(`Once you have a key, use the command: ${chalk.blueBright('set-apikey YOUR_API_KEY')}`);
+        logWarn("AI features will be disabled until a key is set.");
+        logWarn("To paste in, right click or paste into the command prompt");
+       
+    } else {
+        logInfo(`To take a capture: press the configured hotkey`);
+        logInfo(`Hotkey: ${chalk.blueBright(formatTriggerKey(state.triggerKey))} ${listenerReadyStatus}.`);
+    }
+
+   
+   
 
     rl.prompt(); // Start the CLI prompt
 }
